@@ -144,7 +144,7 @@ abstract class BaseChunker
     /**
      * 传入每个item的处理方法
      *
-     * @param  callable  $callable
+     * @param  callable($item, $chunkIndex, $batchIndex)  $callable
      * @return $this
      */
     public function each(callable $callable)
@@ -156,7 +156,7 @@ abstract class BaseChunker
     /**
      * 传入每批chunk的处理方法
      *
-     * @param  callable  $callable
+     * @param  callable($batch, $chunkIndex)  $callable
      * @return $this
      */
     public function batch(callable $callable)

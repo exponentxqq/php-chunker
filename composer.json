@@ -1,18 +1,26 @@
 {
-    "name": "xuqinqin/php-chunker",
-    "authors": [
-        {
-            "name": "xu qinqin",
-            "email": "xu.qinqin@danatech.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Exp\\Chunker\\": "src/"
-        }
-    },
-    "require": {
-        "illuminate/support": "5.*",
-        "illuminate/database": "5.*"
+  "name": "xuqinqin/php-chunker",
+  "authors": [
+    {
+      "name": "xu qinqin",
+      "email": "xu.qinqin@danatech.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Exp\\Chunker\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Exp\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "illuminate/support": "5.*",
+    "illuminate/database": "5.*",
+    "phpunit/phpunit": "^8.3",
+    "symfony/console": "^4.3",
+    "monolog/monolog": "^2.0"
+  }
 }
