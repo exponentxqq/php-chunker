@@ -1,0 +1,18 @@
+{
+    "name": "xuqinqin/php-chunker",
+    "authors": [
+        {
+            "name": "xu qinqin",
+            "email": "xu.qinqin@Exp.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Exp\\Chunker\\": "src/"
+        }
+    },
+    "require": {
+        "illuminate/support": "5.*",
+        "illuminate/database": "5.*"
+    }
+}
