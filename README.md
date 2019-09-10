@@ -3,16 +3,7 @@
 分批次处理数据
 
 ## Installation
-1. 编辑composer.json
-    ```$xslt
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@gitlab.Exp.cn:xu.qinqin/php-chunker.git"
-        }
-    ],
-    ```
-2. 执行`composer require xuqinqin/php-chunker:dev-master`
+2. `composer require xuqinqin/php-chunker`
 
 ## Example
 ```$xslt
