@@ -6,7 +6,13 @@ class ArrayChunker extends BaseChunker
 {
     public function __construct(array $source, $total)
     {
-        $this->source = $source;
+        foreach ($source as $item) {
+            if (!is_object($item)) {
+                $this->source[] = new ItemValue($item);
+            } else {
+                $this->source[] = $item;
+            }
+        }
         $this->total = $total;
     }
 
@@ -22,12 +28,15 @@ class ArrayChunker extends BaseChunker
 
     private function chunkInterval(int $chunkCount, callable $callable, bool $fixed): bool
     {
-        if ($this->whereHandler) {
-            $filteredSource = array_filter($this->source, $this->whereHandler);
-        } else {
-            $filteredSource = $this->source;
-        }
-        while (($slice = array_slice($filteredSource, $fixed ? 0 : ($this->chunkIndex * $chunkCount), $chunkCount))) {
+        $filter = function () {
+            if ($this->whereHandler) {
+                $filteredSource = array_filter($this->source, $this->whereHandler);
+            } else {
+                $filteredSource = $this->source;
+            }
+            return $filteredSource;
+        };
+        while (($slice = array_slice($filter(), $fixed ? 0 : ($this->chunkIndex * $chunkCount), $chunkCount))) {
             $eachResult = $callable($slice, $this->chunkIndex);
             if (false === $eachResult) {
                 return false;

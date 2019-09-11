@@ -8,7 +8,14 @@ class CollectionChunker extends BaseChunker
 {
     public function __construct(Collection $collection, $total)
     {
-        $this->source = $collection;
+        $this->source = collect();
+        foreach ($collection as $item) {
+            if (!is_object($item)) {
+                $this->source->push(new ItemValue($item));
+            } else {
+                $this->source->push($item);
+            }
+        }
         $this->total = $total;
     }
 
@@ -24,10 +31,11 @@ class CollectionChunker extends BaseChunker
 
     private function chunkInterval(int $chunkCount, callable $callable, bool $fixed): bool
     {
-        $filteredSource = $this->whereHandler ? $this->source->filter($this->whereHandler) : $this->source;
-        while (
-            ($slice = $filteredSource->slice($fixed ? 0 : ($chunkCount * $this->chunkIndex), $chunkCount))->isNotEmpty()
-        ) {
+        $filter = function () {
+            return $this->whereHandler ? $this->source->filter($this->whereHandler) : $this->source;
+        };
+        $offset = $fixed ? 0 : ($chunkCount * $this->chunkIndex);
+        while (($slice = $filter()->slice($offset, $chunkCount))->isNotEmpty()) {
             $chunkResult = $callable($slice, $this->chunkIndex);
             if (false === $chunkResult) {
                 return false;
