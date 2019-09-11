@@ -1,6 +1,6 @@
 # php-chunker
 
-分批次处理array、laravel的collection、laravel的db-query的数据
+分批次处理array、laravel的collection、laravel的db-query以及文件的数据
 
 ## Installation
 1. `composer require xuqinqin/php-chunker`
@@ -46,6 +46,19 @@
        // $batch is Collection|User[]
     })->each(function (User $user) {
        // 1, 2, 3, 4, 5, 6, 7
+    })->chunk(3);
+    ```
+4. FileChunker
+    ```php
+    <?php
+    
+    use Exp\Chunker\FileChunker;
+    $file = 'xxx.txt';
+    $chunker = new FileChunker($file);
+    $chunker->batch(function ($lines) {
+       // handle lines 
+    })->each(function ($line) {
+       // handle line 
     })->chunk(3);
     ```
 
